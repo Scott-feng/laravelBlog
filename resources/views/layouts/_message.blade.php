@@ -6,7 +6,7 @@
 @endif
 
 @if(Session::has('success'))
-    <div class="alert axlert-success">
+    <div class="alert alert-success">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
         {{ Session::get('success') }}
     </div>

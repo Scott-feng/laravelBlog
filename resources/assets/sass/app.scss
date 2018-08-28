@@ -25,7 +25,12 @@ body {
   margin-bottom: 40px;
   margin-top: 0px;
 }
-
+#logout {
+  cursor: default;
+  &:hover {
+    background-color: transparent;
+  }
+}
 /* Sticky footer styles */
 html {
   position: relative;
