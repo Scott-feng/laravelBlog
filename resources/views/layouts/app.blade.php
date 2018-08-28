@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 <body>
-    <div id="app" class="{{ route_class()-page }}">
+    <div id="app" class="{{ route_class() }}-page">
         @include('layouts._header')
         <div class="container">
             @include('layouts._message')
