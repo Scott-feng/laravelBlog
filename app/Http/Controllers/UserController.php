@@ -18,6 +18,10 @@ class UserController extends Controller
         $this->middleware('auth',[
             'except'=>['show','create','store','confirmEmail']
         ]);
+
+        $this->middleware('guest',[
+           'only'=>['create']
+        ]);
     }
 
     public function create()
