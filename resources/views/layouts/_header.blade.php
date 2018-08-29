@@ -25,22 +25,30 @@
             <!-- Right Side Of Navbar -->
             <ul class="nav navbar-nav navbar-right">
                 @if (Auth::check())
-                    <li><a href="#">用户列表</a></li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            {{ Auth::user()->name }} <b class="caret"></b>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            <span class="user-avatar pull-left" style="margin-right:8px; margin-top:-5px;">
+                                <img src="{{ Auth::user()->avatar }}" class="img-responsive img-circle" width="30px" height="30px">
+                            </span>
+                            {{ Auth::user()->name }} <span class="caret"></span>
                         </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="{{ route('users.show', Auth::user()->id) }}">个人中心</a></li>
-                            <li><a href="#">编辑资料</a></li>
-                            <li class="divider"></li>
+
+                        <ul class="dropdown-menu" role="menu">
                             <li>
-                                <a id="logout" href="#">
-                                    <form action="{{ route('logout') }}" method="POST">
-                                        {{ csrf_field() }}
-                                        {{ method_field('DELETE') }}
-                                        <button class="btn btn-block btn-danger" type="submit" name="button">退出</button>
-                                    </form>
+                                <a href="{{ route('logout') }}"
+                                   onclick="event.preventDefault();
+                                             document.getElementById('logout-form').submit();">
+                                    退出登录
+                                </a>
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    {{ csrf_field() }}
+                                </form>
+                            </li>
+
+                            <li>
+                                <a href="{{ route('users.edit',Auth::id()) }}">
+                                    编辑资料
                                 </a>
                             </li>
                         </ul>

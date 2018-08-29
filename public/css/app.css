@@ -8950,6 +8950,10 @@ body {
   margin: 6px 0;
 }
 
+.users-show-page .user-info .thumbnail {
+  margin-bottom: 0px;
+}
+
 /* forms */
 
 input,
