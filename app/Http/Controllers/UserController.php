@@ -6,9 +6,20 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Requests\UserRequest;
 use App\Handlers\ImageUploadHandler;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+
 class UserController extends Controller
 {
     //
+
+    public function __construct()
+    {
+        $this->middleware('auth',[
+            'except'=>['show','create','store','confirmEmail']
+        ]);
+    }
+
     public function create()
     {
         return view('users.create');
@@ -26,10 +37,24 @@ class UserController extends Controller
            'password' => bcrypt($request->password),
         ]);
 
-        Auth::login($user);
-        session()->flash('success','欢迎，您创建用户成功');
-        return redirect()->route('users.show',compact('user'));
+//        Auth::login($user);
+        $this->sendEmailConfirmationTo($user);
+        session()->flash('message','验证邮件已经发送，请检查邮箱');
+        return redirect('/');
     }
+
+    public function confirmEmail($token){
+        $user=User::where('activation_token',$token)->firstOrFail();
+
+        $user->activated=true;
+        $user->activation_token=null;
+        $user->save();
+
+        Auth::login($user);
+        session()->flash('success','恭喜您，激活成功');
+        return redirect()->route('users.show',[$user]);
+    }
+
     public function show(User $user)
     {
 
@@ -37,11 +62,12 @@ class UserController extends Controller
     }
 
     public function edit(User $user){
+        $this->authorize('update',$user);
         return view('users.edit',compact('user'));
     }
 
     public function update(UserRequest $request,User $user,ImageUploadHandler $uploader){
-
+        $this->authorize('update',$user);
         $data = $request->all();
         if ($request->avatar){
             $result = $uploader->save($request->avatar,'avatars',$user->id,360);
@@ -51,5 +77,18 @@ class UserController extends Controller
         }
         $user->update($data);
         return redirect()->route('users.show',[$user])->with('success','更新个人信息成功');
+    }
+
+    protected function sendEmailConfirmationTo($user){
+        $view='emails.confirm';
+        $data=compact('user');
+        $from='aufree@yoursails.com';
+        $name='Aufree';
+        $to=$user->email;
+        $subject="感谢您注册SCOTT BLOG.请确认您的邮箱";
+
+        Mail::send($view,$data,function ($message) use($from,$name,$to,$subject){
+            $message->from($from,$name)->to($to)->subject($subject);
+        });
     }
 }
