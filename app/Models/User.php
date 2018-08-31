@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Notifications\ResetPassword;
+
 class User extends Authenticatable
 {
     use Notifiable;
@@ -54,6 +55,6 @@ class User extends Authenticatable
      * @return bool
      */
     public function isAuthorOf($model){
-        return $this->id === $model->user_id;
+        return $this->id == $model->user_id;
     }
 }

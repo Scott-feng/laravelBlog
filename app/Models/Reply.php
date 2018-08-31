@@ -21,4 +21,6 @@ class Reply extends Model
     public function scopeRecent($query){
         return $query->orderBy('created_at','desc');
     }
+
+
 }

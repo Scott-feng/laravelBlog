@@ -20,7 +20,7 @@ class ReplyPolicy
         //
     }
 
-    public function destory(User $user,Reply $reply){
+    public function destroy(User $user,Reply $reply){
         return $user->isAuthorOf($reply) || $user->isAuthorOf($reply->topic);
     }
 }
