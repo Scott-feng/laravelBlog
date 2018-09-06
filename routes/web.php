@@ -58,4 +58,6 @@ Route::prefix('admin')->group(function (){
 
     //topic
     Route::get('topics','TopicController@adminIndex')->name('admin_topic.index');
+    Route::delete('topics/{topic}','TopicController@destroy')->name('admin_topic.destroy');
+    Route::get('topics/{topic}','TopicController@destroyAll')->name('admin_topic.destroyAll');
 });

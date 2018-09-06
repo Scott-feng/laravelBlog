@@ -28,4 +28,31 @@ class TopicController extends Controller
         return view('admins.topic-list',compact('topics'));
     }
 
+    public function destroy(Topic $topic){
+        $topic = Topic::findOrFail($topic->id);
+        $topic->delete();
+
+        return response()->json(['status'=>0,'msg'=>'删除文章成功']);
+
+
+    }
+
+    public function destroyAll(Request $request){
+
+        //json format
+        $topics_list = $request->topics_list;
+
+        $num_list=[];
+        //json 格式转为数组
+        foreach (json_decode($topics_list) as $item){
+            array_push($num_list,(int)$item);
+        }
+
+        if(Topic::destroy($num_list)){
+            return response()->json(['status'=>0,'msg'=>'批量删除成功']);
+        }
+
+        return response()->json(['status'=>1,'msg'=>'批量删除失败']);
+    }
+
 }
