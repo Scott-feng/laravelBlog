@@ -57,4 +57,9 @@ class User extends Authenticatable
     public function isAuthorOf($model){
         return $this->id == $model->user_id;
     }
+
+    //访问器
+    public function getIsAdminAttribute($value){
+        return $value==0 ? '普通用户' : '管理员';
+    }
 }

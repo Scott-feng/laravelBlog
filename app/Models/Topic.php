@@ -21,7 +21,10 @@ class Topic extends Model
         return $this->hasMany(Reply::class);
     }
 
+
     public function scopeRecent($query){
         return $query->orderBy('created_at','desc');
     }
+
+
 }

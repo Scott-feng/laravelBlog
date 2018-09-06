@@ -9,7 +9,7 @@ class TopicController extends Controller
 {
     //
     public function index(){
-        $topics = Topic::with('user','category')->paginate(15);
+        $topics = Topic::with('user','category')->paginate(10);
         return view('topics.index',compact('topics'));
     }
 
@@ -21,6 +21,11 @@ class TopicController extends Controller
     public function show(Topic $topic)
     {
         return view('topics.show',compact('topic'));
+    }
+
+    public function adminIndex(){
+        $topics = Topic::with('user','category')->paginate(10);
+        return view('admins.topic-list',compact('topics'));
     }
 
 }

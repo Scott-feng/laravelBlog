@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Response;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Requests\UserRequest;
 use App\Handlers\ImageUploadHandler;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
-
+use Auth;
 class UserController extends Controller
 {
     //
@@ -95,4 +95,58 @@ class UserController extends Controller
             $message->from($from,$name)->to($to)->subject($subject);
         });
     }
+
+    //获取所有用户
+    public function index(){
+        //auth
+
+        $users=User::paginate(10);
+        return view('admins.admin-list',compact('users'));
+    }
+
+    public function destroy(User $user){
+
+        $user->delete();
+        return response()->json(['status'=>0,'msg'=>'删除成功']);
+    }
+
+    public function destroyAll(Request $request){
+
+        //json format from ajax send
+        $user_list=$request->user_list;
+//
+        $num_list=[];
+        //json 格式转为数组
+        foreach (json_decode($user_list) as $item){
+            array_push($num_list,(int)$item);
+        }
+
+        if(User::destroy($num_list)){
+            return response()->json(['status'=>0,'msg'=>'批量删除成功']);
+        }
+
+        return response()->json(['status'=>1,'msg'=>'批量删除失败']);
+
+
+    }
+
+    public function display(User $user){
+        return view('admins.admin-edit',compact('user'));
+    }
+
+    public function modify(Request $request,User $user){
+        $is_admin = $request->is_admin;
+
+        $user = User::findOrFail($user->id);
+
+        $user->is_admin = $is_admin;
+        $user->save();
+
+        return response()->json(['status'=>0,'msg'=>'更新权限成功']);
+
+    }
+
+
+
+
 }

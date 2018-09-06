@@ -43,6 +43,7 @@ class UsersTableSeeder extends Seeder
         $user->email = 'summer@yousails.com';
         $user->avatar = 'https://fsdhubcdn.phphub.org/uploads/images/201710/14/1/ZqM7iaP4CR.png?imageView2/1/w/200/h/200';
         $user->activated = true;
+        $user->is_admin = true;
         $user->save();
 
     }
