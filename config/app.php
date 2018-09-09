@@ -177,6 +177,9 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        LaravelChen\Editormd\EditorMdProvider::class,
+        zgldh\QiniuStorage\QiniuFilesystemServiceProvider::class,
+
     ],
 
     /*

@@ -57,7 +57,12 @@ Route::prefix('admin')->group(function (){
     Route::post('categories','CategoryController@store')->name('admin_category.store');
 
     //topic
+    Route::get('topics/create','TopicController@create')->name('admin_topic.create');
+    Route::post('topics','TopicController@store')->name('admin_topic.store');
     Route::get('topics','TopicController@adminIndex')->name('admin_topic.index');
     Route::delete('topics/{topic}','TopicController@destroy')->name('admin_topic.destroy');
     Route::get('topics/{topic}','TopicController@destroyAll')->name('admin_topic.destroyAll');
+    Route::get('topics/{topic}/edit','TopicController@edit')->name('admin_topic.edit');
+    Route::patch('topics/{topic}','TopicController@update')->name('admin_topic.update');
+
 });

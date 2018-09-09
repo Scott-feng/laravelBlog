@@ -62,7 +62,7 @@ class CategoryController extends Controller
 
         $num_list=[];
         //json 格式转为数组
-        foreach (json_decode($categories_list) as $item){
+        foreach (json_decode($categories_list,true) as $item){
             array_push($num_list,(int)$item);
         }
 

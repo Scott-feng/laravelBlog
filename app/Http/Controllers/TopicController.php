@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Topic;
-
+use App\Models\Category;
+use Auth;
 class TopicController extends Controller
 {
     //
@@ -13,9 +14,10 @@ class TopicController extends Controller
         return view('topics.index',compact('topics'));
     }
 
-    public function create()
+    public function create(Topic $topic)
     {
-        return view('topics.create');
+        $categories = Category::all();
+        return view('admins.topic-add',compact('topic','categories'));
     }
 
     public function show(Topic $topic)
@@ -34,7 +36,6 @@ class TopicController extends Controller
 
         return response()->json(['status'=>0,'msg'=>'删除文章成功']);
 
-
     }
 
     public function destroyAll(Request $request){
@@ -44,7 +45,7 @@ class TopicController extends Controller
 
         $num_list=[];
         //json 格式转为数组
-        foreach (json_decode($topics_list) as $item){
+        foreach (json_decode($topics_list,true) as $item){
             array_push($num_list,(int)$item);
         }
 
@@ -53,6 +54,39 @@ class TopicController extends Controller
         }
 
         return response()->json(['status'=>1,'msg'=>'批量删除失败']);
+    }
+
+    public function edit(Topic $topic){
+        $categories = Category::all();
+        return view('admins.topic-edit',compact('topic','categories'));
+    }
+
+    public function store(Request $request,Topic $topic){
+        $this->validate($request,[
+            'title'=>'required|min:2',
+            'body'=>'required|min:5'
+        ]);
+
+       $topic->fill($request->all());
+       $topic->user_id = Auth::id();
+       $topic->save();
+
+        return response()->json(['status'=>0,'msg'=>'添加文章成功']);
+    }
+
+    public function update(Topic $topic,Request $request){
+        $this->validate($request,[
+            'title'=>'required|min:2',
+            'body'=>'required|min:5'
+        ]);
+
+        $topic->title = $request->title;
+        $topic->body = $request->body;
+        $topic->category_id = $request->category_id;
+
+        $topic->save();
+
+        return response()->json(['status'=>0,'msg'=>'更新文章成功']);
     }
 
 }
