@@ -19,7 +19,25 @@
     </div>
 
     <div class="col-lg-4">
-        <p>banncer</p>
+        <fieldset class="layui-elem-field">
+            <legend><strong>木兰花·拟古决绝词柬友</strong></legend>
+            <div class="layui-field-box">
+
+                人生若只如初见，何事秋风悲画扇。
+                等闲变却故人心，却道故人心易变。
+                骊山语罢清宵半，泪雨零铃终不怨。
+                何如薄幸锦衣郎，比翼连枝当日愿。
+            </div>
+        </fieldset>
+
+        <fieldset class="layui-elem-field">
+            <legend><strong>蝶恋花</strong></legend>
+            <div class="layui-field-box">
+
+                槛菊愁烟兰泣露，罗幕轻寒，燕子双飞去。明月不谙离恨苦，斜光到晓穿朱户。
+                昨夜西风凋碧树，独上高楼，望尽天涯路。欲寄彩笺兼尺素，山长水阔知何处？
+            </div>
+        </fieldset>
 
     </div>
 @stop
@@ -35,7 +53,8 @@
                 ,width: '100%' //设置容器宽度
                 ,arrow: 'always' //始终显示箭头
                 // ,anim: 'updown' //切换动画方式
-                ,interval: 7000,
+                ,interval: 7000
+                ,height:'400px'
 
             });
         });
