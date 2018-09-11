@@ -11,6 +11,7 @@
 
     {{--styles--}}
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    @yield('css')
 </head>
 <body>
     <div id="app" class="{{ route_class() }}-page">
@@ -23,11 +24,13 @@
         @include('layouts._footer')
     </div>
 
-    @if (app()->isLocal())
+    @if (config('app.debug'))
         @include('sudosu::user-selector')
     @endif
+
+
 {{--scripts--}}
     <script src="{{ asset('js/app.js') }}"></script>
-
+    @yield('script')
 </body>
 </html>

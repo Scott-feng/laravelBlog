@@ -140,7 +140,9 @@ class UserController extends Controller
         $user = User::findOrFail($user->id);
 
         $user->is_admin = $is_admin;
+
         $user->save();
+
 
         return response()->json(['status'=>0,'msg'=>'更新权限成功']);
 

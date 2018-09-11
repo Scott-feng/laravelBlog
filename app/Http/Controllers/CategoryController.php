@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use Response;
-
+use App\Models\Topic;
+use App\Models\Link;
 class CategoryController extends Controller
 {
     //
@@ -73,5 +74,11 @@ class CategoryController extends Controller
         return response()->json(['status'=>1,'msg'=>'批量删除失败']);
     }
 
+    public function show(Category $category,Link $link){
+        $links = $link->getAllCached();
+        $topics = Topic::with('user','category')->where('category_id',$category->id)->paginate(10);
+
+        return view('topics.index',compact('topics','category','links'));
+    }
 
 }

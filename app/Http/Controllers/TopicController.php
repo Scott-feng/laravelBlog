@@ -6,12 +6,16 @@ use Illuminate\Http\Request;
 use App\Models\Topic;
 use App\Models\Category;
 use Auth;
+use App\Models\Link;
+
+
 class TopicController extends Controller
 {
     //
-    public function index(){
+    public function index(Link $link){
         $topics = Topic::with('user','category')->paginate(10);
-        return view('topics.index',compact('topics'));
+        $links = $link->getAllCached();
+        return view('topics.index',compact('topics','links'));
     }
 
     public function create(Topic $topic)

@@ -4,40 +4,28 @@
     <div class="x-body">
         <form class="layui-form">
             <div class="layui-form-item">
-                <label for="username" class="layui-form-label">
-                    <span class="x-red">*</span>用户名
+                <label for="linkName" class="layui-form-label">
+                    <span class="x-red">*</span>资源名称
                 </label>
                 <div class="layui-input-inline">
-                    <input type="text" id="username" name="username" required="" lay-verify="required"
-                           autocomplete="off" value="{{ $user->name }}" class="layui-input" disabled>
+                    <input type="text" id="link_name" name="link_name" required="" lay-verify="required"
+                           autocomplete="off" value="" class="layui-input">
                 </div>
-                <div class="layui-form-mid layui-word-aux">无法修改</div>
+                <div class="layui-form-mid layui-word-aux">至少两个字符</div>
             </div>
 
             <div class="layui-form-item">
-                <label for="L_email" class="layui-form-label">
-                    <span class="x-red">*</span>邮箱
+                <label for="linkName" class="layui-form-label">
+                    <span class="x-red">*</span>资源链接
                 </label>
                 <div class="layui-input-inline">
-                    <input type="text" value="{{ $user->email }}" id="L_email" name="email" required=""
-                           lay-verify="email"
-                           autocomplete="off" class="layui-input" disabled>
+                    <input type="text" value="" id="link_desc" name="link_desc" required=""
+                           lay-verify="required"
+                           autocomplete="off" class="layui-input">
                 </div>
-                <div class="layui-form-mid layui-word-aux">无法修改</div>
-
+                <div class="layui-form-mid layui-word-aux">至少5个字符</div>
             </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label"><span class="x-red">*</span>角色</label>
 
-                <div class="layui-input-block">
-                        @foreach(['普通用户'=>0,'管理员'=>1] as $key=>$value)
-                        <input type="radio" name="admin" lay-skin="primary" title="{{ $key }}"  value="{{ $value }}" {{ (int)$user->is_amdin==$value ? 'checked':''}}>
-                        @endforeach
-
-
-                </div>
-
-            </div>
 
 
             <div class="layui-form-item">
@@ -54,26 +42,25 @@
         layui.use(['form', 'layer'], function () {
             $ = layui.jquery;
             var form = layui.form
-            ,layer = layui.layer;
+                ,layer = layui.layer;
 
             //监听提交
             form.on('submit(add)', function (data) {
                 console.log(data);
-                var is_admin = $("input[type='radio']:checked").val();
                 //发异步，把数据提交给php
                 $.ajax({
-
-                    type: "PATCH",
-                    url: "{{ route('admin_users.modify',[$user]) }}",
+                    type: "POST",
+                    url: "{{ route('admin_link.store') }}",
                     data: {
                         '_token': '{{ csrf_token() }}',
-                        'is_admin' : is_admin
+                        'title':$('#link_name').val(),
+                        'link':$('#link_desc').val()
                     },
                     success: function (data) {
                         console.log('Success',data);
 
                         // layer.msg(data.msg);
-                        layer.alert('更新成功', {icon: 6},function () {
+                        layer.alert(data.msg, {icon: 6},function () {
                             // 获得frame索引
                             var index = parent.layer.getFrameIndex(window.name);
                             //关闭当前frame
