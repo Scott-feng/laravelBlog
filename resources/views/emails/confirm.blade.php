@@ -13,7 +13,6 @@
         {{ route('confirm_email', $user->activation_token) }}
     </a>
 
-    <a href="{{ route('confirm_email', $user->activation_token) }}"><button class="btn-info">点击激活</button></a>
 </p>
 
 <p>

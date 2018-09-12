@@ -86,13 +86,13 @@ class UserController extends Controller
     protected function sendEmailConfirmationTo($user){
         $view='emails.confirm';
         $data=compact('user');
-        $from='aufree@yoursails.com';
-        $name='Aufree';
+//        $from='aufree@yoursails.com';
+//        $name='Aufree';
         $to=$user->email;
         $subject="感谢您注册SCOTT BLOG.请确认您的邮箱";
 
-        Mail::send($view,$data,function ($message) use($from,$name,$to,$subject){
-            $message->from($from,$name)->to($to)->subject($subject);
+        Mail::send($view,$data,function ($message) use($to,$subject){
+            $message->to($to)->subject($subject);
         });
     }
 
