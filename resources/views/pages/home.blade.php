@@ -10,9 +10,9 @@
     <div class="col-lg-8">
         <div class="layui-carousel" id="test1">
             <div carousel-item>
-                <div><img src="http://tupian.aladd.net/2018/6/9/yueduzazhitupian2.jpg"></div>
-                <div><img src="http://tupian.aladd.net/2018/6/9/yueduzazhitupian4.jpg"></div>
-                <div><img src="http://tupian.aladd.net/2018/6/9/yueduzazhitupian3.jpg"></div>
+                <div><img src="{{ config('app.url')}}/image/banner2.jpg"></div>
+                <div><img src="{{ config('app.url')}}/image/banner3.jpg"></div>
+                <div><img src="{{ config('app.url')}}/image/banner4.jpg"></div>
 
             </div>
         </div>
