@@ -10,9 +10,9 @@
     <div class="col-lg-8">
         <div class="layui-carousel" id="test1">
             <div carousel-item>
-                <div><img src="{{ config('app.url')}}/image/banner2.jpg"></div>
-                <div><img src="{{ config('app.url')}}/image/banner3.jpg"></div>
-                <div><img src="{{ config('app.url')}}/image/banner4.jpg"></div>
+                <div><img lay-src="{{ config('app.url')}}/image/banner2.jpg"></div>
+                <div><img lay-src="{{ config('app.url')}}/image/banner3.jpg"></div>
+                <div><img lay-src="{{ config('app.url')}}/image/banner4.jpg"></div>
 
             </div>
         </div>
@@ -57,6 +57,13 @@
                 ,height:'400px'
 
             });
+        });
+        layui.use('flow', function(){
+            var flow = layui.flow;
+            //信息流
+
+            //图片懒加载
+            flow.lazyimg();
         });
     </script>
 @endsection
