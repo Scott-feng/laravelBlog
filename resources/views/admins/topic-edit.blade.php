@@ -86,8 +86,8 @@
             //发异步，把数据提交给php
             $.ajax({
 
-                type: "POST",
-                url: "{{ route('admin_topic.store') }}",
+                type: "PATCH",
+                url: "{{ route('admin_topic.update',[$topic->id]) }}",
                 data: {
                     '_token': '{{ csrf_token() }}',
                     'title': $('#title').val(),
