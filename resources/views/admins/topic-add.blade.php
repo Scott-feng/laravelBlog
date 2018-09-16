@@ -132,12 +132,18 @@
                     'category_id': $('#cate').val()
                 },
                 success: function (data) {
-                    // console.log('Success', data);
+                    console.log('Success', data);
                     // console.log('body HTML: ',testEditor.getMarkdown());
                     // layer.msg(data.msg);
-                    layer.alert(data.msg, {icon: 6});
+                    layer.alert(data.msg, {icon: 6},function(){
+                        window.location.reload();
+                    });
                     // $('#title').setValue(null);
                     // return false;
+
+
+
+
                 },
 
                 error: function (data) {
