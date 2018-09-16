@@ -7,7 +7,7 @@ use App\Models\Topic;
 use App\Models\Category;
 use Auth;
 use App\Models\Link;
-
+use Markdown;
 
 class TopicController extends Controller
 {
