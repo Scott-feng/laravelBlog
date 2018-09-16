@@ -26,9 +26,7 @@
                             <th>PHP版本</th>
                             <td>{{ Sysinfo::php() }}</td></tr>
 
-                        <tr>
-                            <th>MYSQL版本</th>
-                            {{--<td>{{ Sysinfo::mysql() }}</td></tr>--}}
+                      
                         <tr>
                             <th>上传附件限制</th>
                             <td>{{ Sysinfo::upload_max_filesize() }}</td></tr>
