@@ -24,9 +24,6 @@
         @include('layouts._footer')
     </div>
 
-    @if (config('app.debug'))
-        @include('sudosu::user-selector')
-    @endif
 
 
 {{--scripts--}}
