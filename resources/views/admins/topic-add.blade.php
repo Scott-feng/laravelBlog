@@ -71,7 +71,6 @@
 
 
 {{--scripts--}}
-{!! editor_js() !!}
 <script src="{{ config('app.url') }}/X-admin/lib/layui/layui.js" charset="utf-8"></script>
 <script src="/vendor/editormd/js/editormd.js"></script>
 <script src="/vendor/editormd/lib/marked.min.js"></script>
