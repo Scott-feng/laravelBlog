@@ -52,7 +52,7 @@
 
                         <div class="layui-form-item">
                             <div id="editormd_id" class="layui-input">
-                                <textarea name="content" style="display:none;" id="markdown">{!! $topic->body !!}}</textarea>
+                                <textarea name="content" id="markdown" style="display:none;">{!! $topic->body !!}</textarea>
                             </div>
                         </div>
 
@@ -69,20 +69,57 @@
 
 </div>
 
-@if (app()->isLocal())
-    @include('sudosu::user-selector')
-@endif
+
 {{--scripts--}}
-{!! editor_js() !!}
 <script src="{{ config('app.url') }}/X-admin/lib/layui/layui.js" charset="utf-8"></script>
+<script src="/vendor/editormd/js/editormd.js"></script>
+<script src="/vendor/editormd/lib/marked.min.js"></script>
+<script src="/vendor/editormd/lib/prettify.min.js"></script>
+<script src="/vendor/editormd/lib/raphael.min.js"></script>
+<script src="/vendor/editormd/lib/underscore.min.js"></script>
+<script src="/vendor/editormd/lib/sequence-diagram.min.js"></script>
+<script src="/vendor/editormd/lib/flowchart.min.js"></script>
+<script src="/vendor/editormd/lib/jquery.flowchart.min.js"></script>
+
+
 <script>
+
+    var testEditor;
+    $(function () {
+        editormd.emoji = {
+            path: "//staticfile.qnssl.com/emoji-cheat-sheet/1.0.0/",
+            ext: ".png"
+        };
+        testEditor = editormd({
+            id: "editormd_id",
+            width: "100%",
+            height:700,
+            theme: "default",
+            editorTheme:"default",
+            previewTheme:"default",
+            path: '/vendor/editormd/lib/',
+            codeFold:true,
+            saveHTMLToTextarea: true,
+            searchReplace: true,
+            emoji: true,
+            taskList: true,
+            tocm: true,
+            tex: true,
+            flowChart: true,
+            sequenceDiagram: true,
+            imageUpload: true,
+            imageFormats:["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+            imageUploadURL: "/larvelchen/upload/editormd/image?token=YEQr8bsd5HI54xUTQmwycrmcjgtSP0r0tn9n8kWV",
+        });
+    })
+
     layui.use(['form', 'layer'], function () {
         $ = layui.jquery;
         var form = layui.form
             , layer = layui.layer;
         //监听提交
         form.on('submit(add)', function (data) {
-            console.log(data);
+            // console.log(data);
             //发异步，把数据提交给php
             $.ajax({
 
@@ -91,35 +128,31 @@
                 data: {
                     '_token': '{{ csrf_token() }}',
                     'title': $('#title').val(),
-                    'body': $('#markdown').val(),
+                    'body': testEditor.getMarkdown(),
                     'category_id': $('#cate').val()
                 },
                 success: function (data) {
-                    console.log('Success', data);
+                    // console.log('Success', data);
+                    // console.log('body markdown: ',testEditor.getMarkdown());
 
                     // layer.msg(data.msg);
-                    layer.alert(data.msg, {icon: 6}, function () {
-                        // 获得frame索引
-                        var index = parent.layer.getFrameIndex(window.name);
-                        //关闭当前frame
-                        parent.layer.close(index);
-                    });
+                    layer.alert(data.msg, {icon: 6});
                     // return false;
                 },
 
                 error: function (data) {
                     console.log('Error:', data);
-                    layer.alert('更新失败', {icon: 5}, function () {
-                        var index = parent.layer.getFrameIndex(window.name);
-                        //关闭当前frame
-                        parent.layer.close(index);
-                    });
+                    layer.alert('更新失败', {icon: 5});
 
                 }
             });
 
         });
     });
+
+
 </script>
+
+
 </body>
 </html>

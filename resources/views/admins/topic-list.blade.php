@@ -13,8 +13,10 @@
         </div>
         <xblock>
             <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-            <button class="layui-btn" onclick="x_admin_show('添加文章','{{ route('admin_topic.create') }}',1000)"><i class="layui-icon"></i>添加
+            <a href="{{ route('admin_topic.create') }}" target="_blank">
+            <button class="layui-btn" ><i class="layui-icon"></i>添加
             </button>
+            </a>
             {{--<span class="x-right" style="line-height:40px">共有数据:{{ $users->count() }} 条</span>--}}
         </xblock>
         <table class="layui-table">
@@ -45,7 +47,7 @@
 
                     <td class="td-manage">
 
-                        <a title="编辑" onclick="x_admin_show('编辑','{{ route('admin_topic.edit',[$topic]) }}',1000)" href="javascript:;">
+                        <a title="编辑" href="{{ route('admin_topic.edit',[$topic]) }}" target="_blank" >
                             <i class="layui-icon">&#xe642;</i>
                         </a>
                         <a title="删除" onclick="member_del(this,'{{ $topic->id }}')" href="javascript:;">
