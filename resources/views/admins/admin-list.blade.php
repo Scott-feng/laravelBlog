@@ -42,7 +42,7 @@
                     <td>{{ $user->id }}</td>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
-                    <td>{{ $user->is_admin }}</td>
+                    <td>{{ $user->is_admin ? '管理员':'普通用户' }}</td>
                     <td>{{ $user->created_at }}</td>
 
                     @if($user->id != 1)

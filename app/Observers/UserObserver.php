@@ -13,11 +13,12 @@ class UserObserver
     }
 
     public function saved(User $user){
-        if($user->is_admin){
+        if ($user->is_admin){
             $user->assignRole('Founder');
         } else {
-            $user->removeRole('Founder');
+            $user->assignRole('Visitor');
         }
-
     }
+
+
 }

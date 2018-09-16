@@ -31,7 +31,7 @@
 
                 <div class="layui-input-block">
                         @foreach(['普通用户'=>0,'管理员'=>1] as $key=>$value)
-                        <input type="radio" name="admin" lay-skin="primary" title="{{ $key }}"  value="{{ $value }}" {{ (int)$user->is_amdin==$value ? 'checked':''}}>
+                        <input type="radio" name="admin" lay-skin="primary" title="{{ $key }}"  value="{{ $value }}" {{ $user->is_amdin==$value ? 'checked':''}} data-id="{{ $user->is_admin }}">
                         @endforeach
 
 

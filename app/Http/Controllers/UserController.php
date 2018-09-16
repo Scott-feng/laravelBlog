@@ -141,6 +141,7 @@ class UserController extends Controller
 
         $user->is_admin = $is_admin;
 
+
         $user->save();
 
 
