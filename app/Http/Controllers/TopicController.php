@@ -26,6 +26,7 @@ class TopicController extends Controller
 
     public function show(Topic $topic)
     {
+        $topic->body = Markdown::driver('github')->html($topic->body);
         return view('topics.show',compact('topic'));
     }
 

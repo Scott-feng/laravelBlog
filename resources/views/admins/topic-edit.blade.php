@@ -12,11 +12,13 @@
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ config('app.url') }}/X-admin/lib/layui/css/layui.css">
 
+    <title>编辑文章-{{ $topic->title }}</title>
     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
     <script src="{{ config('app.url') }}/X-admin/lib/layui/layui.js" charset="utf-8"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     {!! editor_css() !!}
+    {{--<link rel="stylesheet" href="{{ config('app.url') }}/css/editormd.css">--}}
 </head>
 <body>
 <div id="app" class="{{ route_class() }}-page">
@@ -72,6 +74,9 @@
 
 {{--scripts--}}
 <script src="{{ config('app.url') }}/X-admin/lib/layui/layui.js" charset="utf-8"></script>
+{!! editor_js() !!}
+
+{{--
 <script src="/vendor/editormd/js/editormd.js"></script>
 <script src="/vendor/editormd/lib/marked.min.js"></script>
 <script src="/vendor/editormd/lib/prettify.min.js"></script>
@@ -152,7 +157,7 @@
 
 
 </script>
-
+--}}
 
 </body>
 </html>

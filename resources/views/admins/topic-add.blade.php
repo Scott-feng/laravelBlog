@@ -9,6 +9,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     {{--styles--}}
     {{--<link rel="stylesheet" href="{{asset('css/app.css')}}">--}}
+    <title>添加文章</title>
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ config('app.url') }}/X-admin/lib/layui/css/layui.css">
 

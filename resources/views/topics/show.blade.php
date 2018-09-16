@@ -39,7 +39,7 @@
 
                     </div>
 
-                    <div class="topic-body">
+                    <div class="topic-body" id="markdownbody">
                         {!! $topic->body !!}
                     </div>
 
@@ -60,3 +60,5 @@
 
     </div>
 @endsection
+
+
