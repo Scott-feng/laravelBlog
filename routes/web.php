@@ -39,7 +39,7 @@ Route::view('/about','pages.about');
 
 
 //prefix admin
-Route::group(['prefix' => 'admin','middleware'=>['IsAdmin']],function () {
+Route::group(['prefix' => 'admin','middleware'=>['auth','IsAdmin']],function () {
 
         Route::view('/', 'admins.index')->name('admin');
         Route::view('welcome', 'admins.welcome')->name('admin.welcome');

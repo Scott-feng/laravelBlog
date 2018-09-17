@@ -60,7 +60,4 @@ class User extends Authenticatable
     }
 
     //访问器
-    public function getIsAdminAttribute($value){
-        return $value==0 ? '普通用户' : '管理员';
-    }
 }

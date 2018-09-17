@@ -16,6 +16,7 @@ class IsAdmin
     public function handle($request, Closure $next)
     {
 		if(!$request->user()->is_admin){
+			session()->flash('danger','no auth');
 			return redirect('/');
 
 		}
