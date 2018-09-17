@@ -32,7 +32,7 @@ class SessionController extends Controller
                 return redirect()->route('users.show',[Auth::user()]);
             } else {
                 Auth::logout();
-                session()->flash('danger','你的账号未激活，请检查邮箱中的注册邮件激活');
+                return session()->flash('danger','你的账号未激活，请检查邮箱中的注册邮件激活');
                 redirect('/');
             }
 
