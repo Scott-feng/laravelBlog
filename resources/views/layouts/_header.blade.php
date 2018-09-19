@@ -48,9 +48,10 @@
                             <span class="user-avatar pull-left" style="margin-right:8px; margin-top:-5px;">
 
                                 @if(Auth::user()->is_admin)
-                                <span class="badge pull-right">VIP</span>
+                                {{--<span class="badge pull-right">VIP</span>--}}
+                                <span class="pull-right"><img src="{{ config('app.url') }}/image/vip.png" alt="" class="img-thumbnail img-responsive" style="height: 40px;margin-left: 5px;"></span>
                                 @endif
-                                <img src="{{ Auth::user()->avatar }}" class="img-responsive img-circle" width="30px" height="30px">
+                                <img src="{{ Auth::user()->avatar }}" class="img-responsive img-circle" width="40px" height="40px">
                             </span>
                             {{ Auth::user()->name }} <span class="caret"></span>
                         </a>
