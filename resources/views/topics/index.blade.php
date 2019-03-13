@@ -29,7 +29,7 @@
         </div>
 
         <div class="col-lg-3 col-md-3 sidebar">
-            @include('topics._sidebar')
+            @include('topics._sidebar',['links'=>$links])
         </div>
     </div>
 

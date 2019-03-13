@@ -22,6 +22,8 @@ Route::get('login','SessionController@create')->name('login');
 Route::post('login','SessionController@store')->name('login');
 Route::delete('logout','SessionController@destroy')->name('logout');
 
+//tag
+Route::get('tags/{tag}','TagController@show')->name('tags.show');
 
 //confrim email
 Route::get('signup/confirm/{token}','UserController@confirmEmail')->name('confirm_email');
@@ -81,6 +83,22 @@ Route::group(['prefix' => 'admin','middleware'=>['auth','IsAdmin']],function () 
         Route::get('links/destroyAll','LinkController@destroyAll')->name('admin_link.destroyAll');
         Route::get('links/create','LinkController@create')->name('admin_link.create');
         Route::post('links','LinkController@store')->name('admin_link.store');
+
+        //tag
+        Route::get('tags','TagController@index')->name('admin_tag.index');
+        Route::get('tags/{tag}/edit','TagController@edit')->name('admin_tag.edit');
+        Route::get('tags/create','TagController@create')->name('admin_tag.create');
+        Route::post('tags/', 'TagController@store')->name('admin_tag.store');
+
+        Route::patch('tags/{tag}','TagController@update')->name('admin_tag.update');
+        Route::delete('tags/{tag}','TagController@destroy')->name('admin_tag.destroy');
+        Route::get('tags/destroyAll','TagController@destroyAll')->name('admin_tag.destroyAll');
+
+
+
+
+
+
 
 
 });

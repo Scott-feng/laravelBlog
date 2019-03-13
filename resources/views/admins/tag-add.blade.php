@@ -4,14 +4,14 @@
     <div class="x-body">
         <form class="layui-form">
             <div class="layui-form-item">
-                <label for="username" class="layui-form-label">
-                    <span class="x-red">*</span>用户名
+                <label for="tagName" class="layui-form-label">
+                    <span class="x-red">*</span>标签名称
                 </label>
                 <div class="layui-input-inline">
-                    <input type="text" id="username" name="username" required="" lay-verify="required"
-                           autocomplete="off" value="{{ $user->name }}" class="layui-input" disabled>
+                    <input type="text" id="tag_name" name="tag_name" required="" lay-verify="required"
+                           autocomplete="off" value="" class="layui-input">
                 </div>
-                <div class="layui-form-mid layui-word-aux">无法修改</div>
+                <div class="layui-form-mid layui-word-aux">至少两个字符</div>
             </div>
 
 
@@ -30,26 +30,25 @@
         layui.use(['form', 'layer'], function () {
             $ = layui.jquery;
             var form = layui.form
-            ,layer = layui.layer;
+                ,layer = layui.layer;
 
             //监听提交
             form.on('submit(add)', function (data) {
                 console.log(data);
-                var is_admin = $("input[type='radio']:checked").val();
                 //发异步，把数据提交给php
                 $.ajax({
-
-                    type: "PATCH",
-                    url: "{{ route('admin_users.modify',[$user]) }}",
+                    type: "POST",
+                    url: "{{ route('admin_tag.store') }}",
                     data: {
                         '_token': '{{ csrf_token() }}',
-                        'is_admin' : is_admin
+                        'title':$('#tag_name').val(),
+
                     },
                     success: function (data) {
                         console.log('Success',data);
 
                         // layer.msg(data.msg);
-                        layer.alert('更新成功', {icon: 6},function () {
+                        layer.alert(data.msg, {icon: 6},function () {
                             // 获得frame索引
                             var index = parent.layer.getFrameIndex(window.name);
                             //关闭当前frame

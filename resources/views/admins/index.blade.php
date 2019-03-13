@@ -127,6 +127,24 @@
                 </ul>
             </li>
 
+            {{--标签管理--}}
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe7cd;</i>
+                    <cite>标签管理</cite>
+                    <i class="iconfont nav_right">&#xe697;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a _href="{{ route('admin_tag.index') }}">
+                            <i class="iconfont">&#xe761;</i>
+                            <cite>标签列表</cite>
+
+                        </a>
+                    </li >
+                </ul>
+            </li>
+
 
         </ul>
     </div>

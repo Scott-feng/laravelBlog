@@ -48,6 +48,23 @@
                     </li >
                 </ul>
             </li>
+
+            <li>
+                <a href="javascript:;">
+                    <i class="iconfont">&#xe723;</i>
+                    <cite>标签管理</cite>
+                    <i class="iconfont nav_right">&#xe6a7;</i>
+                </a>
+                <ul class="sub-menu">
+                    <li>
+                        <a _href="cate.html">
+                            <i class="iconfont">&#xe723;</i>
+                            <cite>标签列表</cite>
+                        </a>
+                    </li >
+                </ul>
+            </li>
+
         </ul>
     </div>
 </div>

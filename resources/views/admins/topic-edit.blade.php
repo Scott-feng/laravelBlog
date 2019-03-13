@@ -36,7 +36,7 @@
 
                     @include('common.error')
 
-                    <form class="layui-form">
+                    <form class="layui-form" >
 
                         <div class="layui-form-item">
                             <input class="layui-input" type="text" name="title" id="title" value="{{ old('title',$topic->title) }}" placeholder="请填写标题" lay-verify="required">
@@ -50,6 +50,18 @@
                                     <option value="{{ $value->id }}" {{ $topic->category_id == $value->id ? "selected":"" }}>{{ $value->name }}</option>
                                 @endforeach
                             </select>
+                        </div>
+
+                        <div class="layui-form-item" >
+                            <label class="layui-form-label">标签</label>
+                            <div class="layui-input-block" id="tagsCheckbox">
+                                @foreach(\App\Models\Tag::all() as $tag)
+                                    <input type="checkbox" name="{{ $tag->title }}" title="{{ $tag->title }}" lay-filter="tags" value="{{ $tag->id }}">
+
+                                @endforeach
+                            </div>
+
+
                         </div>
 
                         <div class="layui-form-item">
@@ -122,6 +134,15 @@
         $ = layui.jquery;
         var form = layui.form
             , layer = layui.layer;
+
+        var arr=new Array();
+        form.on('checkbox(tags)', function (data) {
+            // console.log(data.elem.checked); //是否被选中，true或者false
+            console.log(data.value); //复选框value值，也可以通过data.elem.value得到
+            arr.push(data.value)
+        });
+
+        console.log(arr)
         //监听提交
         form.on('submit(add)', function (data) {
             // console.log(data);
@@ -134,7 +155,8 @@
                     '_token': '{{ csrf_token() }}',
                     'title': $('#title').val(),
                     'body': testEditor.getMarkdown(),
-                    'category_id': $('#cate').val()
+                    'category_id': $('#cate').val(),
+                    'tags_id': JSON.stringify(arr),
                 },
                 success: function (data) {
                     // console.log('Success', data);

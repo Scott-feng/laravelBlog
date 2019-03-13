@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use App\Models\Topic;
 use App\Models\Category;
@@ -13,8 +14,11 @@ class TopicController extends Controller
 {
     //
     public function index(Link $link){
-        $topics = Topic::with('user','category')->paginate(10);
+        $topics = Topic::with('user','category')->orderBy('updated_at','desc')
+            ->paginate(10);
         $links = $link->getAllCached();
+
+
         return view('topics.index',compact('topics','links'));
     }
 
@@ -82,12 +86,20 @@ class TopicController extends Controller
     public function update(Topic $topic,Request $request){
         $this->validate($request,[
             'title'=>'required|min:2',
-            'body'=>'required|min:5'
+            'body'=>'required|min:5',
+            'tags_id'=>'required',
         ]);
+
+        $tag_list= json_decode($request->tags_id,true);
+
+        //dd($tag_list);
+        //$topic->tags()->attach($tag_list);
+        $topic->tags()->sync($tag_list,true);
 
         $topic->title = $request->title;
         $topic->body = $request->body;
         $topic->category_id = $request->category_id;
+
 
         $topic->save();
 

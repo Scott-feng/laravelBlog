@@ -12,6 +12,18 @@
                     </a>
                 @endforeach
 
+                <br>
+                <br>
+                <div class="text-center">文章标签</div>
+                <hr>
+                @foreach (\App\Models\Tag::all() as $tag)
+                    <a class="media" href="{{ route('tags.show',[$tag]) }}">
+                        <div class="media-body">
+                            <span class="label label-primary"> {{ $tag->title }} </span>
+                        </div>
+                    </a>
+                @endforeach
+
             </div>
         </div>
     @endif

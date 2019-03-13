@@ -26,5 +26,9 @@ class Topic extends Model
         return $query->orderBy('created_at','desc');
     }
 
+    public function tags(){
+        return $this->belongsToMany(Tag::class);
+    }
+
 
 }

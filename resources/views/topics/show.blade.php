@@ -32,6 +32,12 @@
                     </h1>
 
                     <div class="article-meta text-center">
+                        @foreach($topic->tags as $tag)
+                            <span class="label label-info text-center"><a href="{{ route('tags.show',[$tag->id]) }}">{{ $tag->title }}</a></span>
+                        @endforeach
+                    </div>
+
+                    <div class="article-meta text-center">
                         {{ $topic->created_at->diffForHumans() }}
                         &nbsp;&nbsp;
                         <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
