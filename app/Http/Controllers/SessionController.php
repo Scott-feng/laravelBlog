@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-
+use Overtrue\Socialite\SocialiteManager;
+use Auth;
 class SessionController extends Controller
 {
     //
     public function __construct()
     {
         $this->middleware('guest',[
-            'only'=>['create']
+            'only'=>['create','github','githubCallback']
         ]);
     }
 
@@ -48,4 +49,40 @@ class SessionController extends Controller
         session()->flash('message','您已登出');
         return redirect('login');
     }
+
+    public function github(){
+        $socialite = new SocialiteManager(config('services'));
+
+        $response = $socialite->driver('github')->redirect();
+        return $response;
+    }
+
+    public function githubCallback(){
+        $socialite = new SocialiteManager(config('services'));
+
+        $user = $socialite->driver('github')->user();
+
+        //dd($user);
+        //未注册用户
+        if (!$newUser = User::where('email',$user->getEmail())->first()){
+            $new = User::create([
+                'name' => $user->getNickname(),
+                'email' => $user->getEmail(),
+                'password' => bcrypt(str_random(8)),
+                'avatar' => $user->getAvatar(),
+
+
+            ]);
+            Auth::login($new);
+        }
+        //dd($newUser);
+
+        //已注册未登录的用户
+        if (!Auth::check()){
+            Auth::login($newUser);
+        }
+
+        return redirect('/');
+    }
+
 }

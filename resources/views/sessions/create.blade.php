@@ -6,6 +6,10 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h5>登录</h5>
+                <a class="" href="{{ route('login.github') }}" title="github"><img src="http://podquousg.bkt.clouddn.com/github.png" alt="github" width="20"></a>
+                <a class="" href="" title="weibo"><img src="http://podquousg.bkt.clouddn.com/%E5%BE%AE%E5%8D%9A.png" alt="weibo" width="20"></a>
+                <a class="" href="" title="wechat"><img src="http://podquousg.bkt.clouddn.com/%E5%BE%AE%E4%BF%A1.png" alt="wechat" width="20"></a>
+
             </div>
             <div class="panel-body">
                 @include('common.error')

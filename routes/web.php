@@ -39,6 +39,10 @@ Route::resource('replies','RepliesController',['only'=>['store','destroy']]);
 //about
 Route::view('/about','pages.about');
 
+//github
+Route::get('login/github','SessionController@github')->name('login.github');
+Route::get('github/callback','SessionController@githubCallback');
+
 
 //prefix admin
 Route::group(['prefix' => 'admin','middleware'=>['auth','IsAdmin']],function () {
@@ -93,8 +97,6 @@ Route::group(['prefix' => 'admin','middleware'=>['auth','IsAdmin']],function () 
         Route::patch('tags/{tag}','TagController@update')->name('admin_tag.update');
         Route::delete('tags/{tag}','TagController@destroy')->name('admin_tag.destroy');
         Route::get('tags/destroyAll','TagController@destroyAll')->name('admin_tag.destroyAll');
-
-
 
 
 
