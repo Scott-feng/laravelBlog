@@ -40,6 +40,14 @@
 
             </ul>
 
+            <form class="navbar-form navbar-left" action="{{ route('scout.search') }}" method="get">
+                {{ csrf_field() }}
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="输入文章标题或内容" name="search">
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+
             <!-- Right Side Of Navbar -->
             <ul class="nav navbar-nav navbar-right">
                 @if (Auth::check())

@@ -43,6 +43,9 @@ Route::view('/about','pages.about');
 Route::get('login/github','SessionController@github')->name('login.github');
 Route::get('github/callback','SessionController@githubCallback');
 
+//search
+Route::get('search/','SearchController@search')->name('scout.search');
+
 
 //prefix admin
 Route::group(['prefix' => 'admin','middleware'=>['auth','IsAdmin']],function () {

@@ -4,6 +4,7 @@
 
 @section('css')
     <link rel="stylesheet" href="{{config('app.url')}}/X-admin/lib/layui/css/layui.css">
+
 @endsection
 
 @section('content')

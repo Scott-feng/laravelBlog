@@ -179,6 +179,7 @@ return [
 
         LaravelChen\Editormd\EditorMdProvider::class,
         zgldh\QiniuStorage\QiniuFilesystemServiceProvider::class,
+        Laravel\Scout\ScoutServiceProvider::class,
 
     ],
 

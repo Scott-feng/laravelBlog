@@ -3,9 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Laravel\Scout\Searchable;
 class Topic extends Model
 {
+    use Searchable;
     //
     protected $fillable=['title','body','category_id','view_count','user_id'];
 
@@ -30,5 +31,16 @@ class Topic extends Model
         return $this->belongsToMany(Tag::class);
     }
 
+    public function searchableAs()
+    {
+        return 'topics_index';
+    }
+
+    public function toSearchableArray()
+    {
+        $array = $this->toArray();
+
+        return array('title' => $array['title'],'body' => $array['body']);
+    }
 
 }
