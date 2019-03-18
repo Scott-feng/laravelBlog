@@ -8,38 +8,32 @@
 @endsection
 
 @section('content')
-        <div class="container">
-
-        <div class="container">
-            <form class="navbar-form navbar-left" role="search">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search" name="search">
-                </div>
-                <button type="submit" class="btn btn-default">Submit</button>
-            </form>
-        </div>
 
 
-        <hr>
-        <div>
+        <div class="container col-lg-8 col-lg-offset-2">
 
 
         @foreach($topics as $topic)
+        <div class="panel panel-info">
 
-            <h3>{{ substr($topic->title,0,8) }}</h3>
 
-            <p>{{ substr($topic->body,0,30) }}...</p>
+
+            <h3>{{ substr($topic->title,0,8) }} ......</h3>
+
+            <p>{{ substr($topic->body,0,30) }} ......</p>
 
              <p>
                  <a class="btn btn-default" href="{{ route('topics.show',[$topic]) }}" role="button">View details »</a>
              </p>
+
+        </div>
 
 
         @endforeach
 
         {!! $topics->links() !!}
         </div>
-        </div>
+
 
 @endsection
 
