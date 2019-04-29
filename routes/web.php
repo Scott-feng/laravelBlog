@@ -13,7 +13,11 @@
 Route::get('/','PageController@home')->name('home');
 Route::resource('topics','TopicController');
 
+Route::post('/favorite/{topic}','TopicController@favorites')->name('favorites');
+Route::post('/unfavorite/{topic}','TopicController@unFavorites')->name('unFavorites');
+
 Route::resource('users','UserController',['except'=>['index']]);
+Route::get('my_favorites', 'UsersController@myFavorites')->middleware('auth');
 
 Route::get('categories/{category}','CategoryController@show')->name('categories.show');
 
@@ -46,6 +50,10 @@ Route::get('github/callback','SessionController@githubCallback');
 //search
 Route::get('search/','SearchController@search')->name('scout.search');
 
+//message
+Route::post('messages','MessageController@store')->name('messages.store');
+Route::get('messages/create','MessageController@create')->name('messages.create');
+Route::get('notifications/','NotificationsController@index')->name('notifications.index');
 
 //prefix admin
 Route::group(['prefix' => 'admin','middleware'=>['auth','IsAdmin']],function () {

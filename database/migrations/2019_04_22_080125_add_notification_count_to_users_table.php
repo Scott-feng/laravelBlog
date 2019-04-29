@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTagTopicTable extends Migration
+class AddNotificationCountToUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class CreateTagTopicTable extends Migration
      */
     public function up()
     {
-        Schema::create('tag_topic', function (Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->unsignedInteger('notification_count')->default(0);
         });
     }
 
@@ -26,6 +25,8 @@ class CreateTagTopicTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tag_topic');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('notification_count');
+        });
     }
 }

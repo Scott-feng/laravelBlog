@@ -19,6 +19,42 @@
                                 <img class="thumbnail img-responsive" src="{{ $topic->user->avatar }}" width="300px" height="300px">
                             </a>
                         </div>
+
+                        {{--modal start--}}
+                        <div>
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                发送私信
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">发送私信</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form>
+                                                <div class="form-group">
+                                                    <label for="message-text" class="col-form-label">信息:</label>
+                                                    <textarea class="form-control" placeholder="请输入至少两个字符" id="message-text" ></textarea>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                                            <button type="button" class="btn btn-primary" id="sendButton">发送</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{--modal end--}}
+
                     </div>
                 </div>
             </div>
@@ -52,6 +88,16 @@
 
 
                 </div>
+
+                @if(Auth::check())
+                    <div class="panel-footer">
+                        <Favorite :post={{ $topic->id }} :favorited={{ $topic->favorited() ? 'true' : 'false' }}
+                        ></Favorite>
+                        {{--<example></example>--}}
+
+                    </div>
+
+                @endif
             </div>
 
             {{-- 用户回复列表 --}}
@@ -71,4 +117,21 @@
     </div>
 @endsection
 
+@section('script')
+    <script>
+
+
+        $('#sendButton').click(function () {
+            var content=$("#message-text").val();
+            console.log(content);
+            console.log(JSON.stringify({{ $topic->user->id }}))
+           axios.post('/messages',{
+               message: content,
+               toUser: {{ $topic->user->id }}
+           }).then((response)=>console.log(response))
+               .catch((error)=>console.log(error))
+        });
+
+    </script>
+@endsection
 

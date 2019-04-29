@@ -40,17 +40,31 @@
 
             </ul>
 
+
             <form class="navbar-form navbar-left" action="{{ route('scout.search') }}" method="get">
-                {{ csrf_field() }}
+                {{--{{ csrf_field() }}--}}
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="输入文章标题或内容" name="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="输入文章标题或内容" name="search">
+                        <span class="input-group-btn">
+        <button class="btn btn-default" type="submit">Submit</button>
+      </span>
+                    </div>
+
                 </div>
-                <button type="submit" class="btn btn-default">Submit</button>
             </form>
+
+
+
 
             <!-- Right Side Of Navbar -->
             <ul class="nav navbar-nav navbar-right">
                 @if (Auth::check())
+                    <li class="nav-item notification-badge">
+                        <a class="badge badge-pill badge-{{ Auth::user()->notification_count > 0 ? 'hint' : 'secondary' }} text-white" href="{{ route('notifications.index') }}" style="margin-top: 4px">
+                            {{ Auth::user()->notification_count }}
+                        </a>
+                    </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                             <span class="user-avatar pull-left" style="margin-right:8px; margin-top:-5px;">

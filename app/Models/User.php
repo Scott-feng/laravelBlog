@@ -6,11 +6,12 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Notifications\ResetPassword;
 use Spatie\Permission\Traits\HasRoles;
+use Auth;
+
 class User extends Authenticatable
 {
-    use Notifiable;
     use HasRoles;
-
+    use Notifiable;
     /**
      * The attributes that are mass assignable.
      *
@@ -59,4 +60,30 @@ class User extends Authenticatable
         return $this->id == $model->user_id;
     }
 
+    public function favorites()
+    {
+        return $this->belongsToMany(Topic::class,'favorites','user_id','topic_id');
+    }
+
+
+    public function customNotify($instance)
+    {
+        // 如果要通知的人是当前用户，就不必通知了！
+        //if ($this->id == Auth::id()) {
+        //    return;
+        //}
+
+        // 只有数据库类型通知才需提醒，直接发送 Email 或者其他的都 Pass
+        $this->increment('notification_count');
+
+        $this->notify($instance);
+    }
+
+    public function markAsRead()
+    {
+        $this->notification_count = 0;
+        $this->save();
+
+        $this->unreadNotifications->markAsRead();
+    }
 }

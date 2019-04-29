@@ -11,7 +11,9 @@ class SearchController extends Controller
         $word = $request->input('search');
 
         if ($word) {
-            $topics = Topic::search($word)->paginate();
+            $topics = Topic::search($word)->paginate(10);
+
+            //dd($topics);
 
             return view('pages.search',compact('topics','word'));
         }

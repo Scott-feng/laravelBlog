@@ -25,6 +25,8 @@
                     {{-- 分页 --}}
                     {!! $topics->appends(Request::except('page'))->render() !!}
                 </div>
+
+
             </div>
         </div>
 

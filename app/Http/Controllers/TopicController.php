@@ -106,4 +106,16 @@ class TopicController extends Controller
         return response()->json(['status'=>0,'msg'=>'更新文章成功']);
     }
 
+    public function favorites(Topic $topic)
+    {
+        Auth::user()->favorites()->toggle($topic->id);
+        return back();
+    }
+
+
+    public function unFavorites(Topic $topic)
+    {
+        Auth::user()->favorites()->toggle($topic->id);
+        return back();
+    }
 }
