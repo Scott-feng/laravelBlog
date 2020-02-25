@@ -10,6 +10,8 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+use App\Events\PublicMessageEvent;
+
 Route::get('/','PageController@home')->name('home');
 Route::resource('topics','TopicController');
 
@@ -42,6 +44,8 @@ Route::resource('replies','RepliesController',['only'=>['store','destroy']]);
 
 //about
 Route::view('/about','pages.about');
+
+
 
 //github
 Route::get('login/github','SessionController@github')->name('login.github');

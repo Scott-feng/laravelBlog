@@ -31,6 +31,8 @@ class AppServiceProvider extends ServiceProvider
                 ->build(),
                 config('scout.elasticsearch.index')
             );
+
+            //return new EsEngine();
         });
 
         Reply::observe(ReplyObserver::class);
